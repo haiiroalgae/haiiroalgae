@@ -1,0 +1,8 @@
+[
+  { "item": "头像绘制", "price": "¥100", "description": "线稿+平涂" },
+  { "item": "半身插画", "price": "¥300", "description": "精细背景" },
+  { "item": "全身插画", "price": "¥500", "description": "含复杂背景" },
+  { "item": "Q版头像", "price": "¥80", "description": "简洁可爱风格" },
+  { "item": "立绘绘制", "price": "¥800", "description": "精细立绘含多表情" },
+  { "item": "情景插画", "price": "¥600", "description": "含背景和光效" }
+]

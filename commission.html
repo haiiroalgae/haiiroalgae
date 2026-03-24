@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>委托 - Commission</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #f7b05e;
+      --bg-white: #ffffff;
+      --bg-gray: #f5f5f5;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* 返回按钮 */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+    }
+
+    .back-btn a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-white);
+      border-radius: 25px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background: var(--primary-color);
+      color: var(--bg-white);
+    }
+
+    /* 页面标题 */
+    .page-title {
+      text-align: center;
+      padding: 5rem 1rem 2rem;
+      font-size: 1.75rem;
+      color: var(--text-dark);
+    }
+
+    /* 主容器 */
+    .commission-container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      gap: 2rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* 左侧按钮区 */
+    .sidebar {
+      width: 200px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      background: var(--bg-gray);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-btn:hover,
+    .sidebar-btn.active {
+      background: var(--primary-color);
+      color: var(--bg-white);
+      border-color: var(--primary-color);
+    }
+
+    /* 右侧内容区 */
+    .content {
+      flex: 1;
+      padding: 1rem;
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    /* 价目表样式 */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .price-table th,
+    .price-table td {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--bg-gray);
+    }
+
+    .price-table th {
+      background: var(--primary-color);
+      color: var(--bg-white);
+      font-weight: 600;
+    }
+
+    .price-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .price-table tr:hover td {
+      background: var(--bg-gray);
+    }
+
+    .price-table .price {
+      color: #e8964a;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* 图片网格 */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .grid-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1rem 0.75rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      color: white;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .grid-item:hover .caption {
+      opacity: 1;
+    }
+
+    /* 加载状态 */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-gray);
+    }
+
+    /* 模态框 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--primary-color);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .commission-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .sidebar {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+      }
+
+      .sidebar-btn {
+        flex: 1;
+        margin-bottom: 0;
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .page-title {
+        padding: 4rem 1rem 1rem;
+        font-size: 1.5rem;
+      }
+
+      .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .price-table th,
+      .price-table td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <!-- 返回按钮 -->
+  <div class="back-btn">
+    <a href="index.html">← 返回首页</a>
+  </div>
+
+  <h1 class="page-title">委托项目</h1>
+
+  <div class="commission-container">
+    <!-- 左侧按钮 -->
+    <div class="sidebar">
+      <button class="sidebar-btn active" data-target="price">价目表</button>
+      <button class="sidebar-btn" data-target="images">图片展示</button>
+    </div>
+
+    <!-- 右侧内容 -->
+    <div class="content">
+      <!-- 价目表 -->
+      <div class="content-section active" id="price">
+        <div class="loading">加载中...</div>
+      </div>
+
+      <!-- 图片展示 -->
+      <div class="content-section" id="images">
+        <div class="loading">加载中...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 图片预览模态框 -->
+  <div class="modal" id="modal">
+    <span class="modal-close" id="modalClose">×</span>
+    <img id="modalImg" src="" alt="大图预览">
+  </div>
+
+  <script>
+    // 标签页切换
+    const sidebarBtns = document.querySelectorAll('.sidebar-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    sidebarBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.target;
+
+        sidebarBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        contentSections.forEach(section => {
+          section.classList.remove('active');
+          if (section.id === target) {
+            section.classList.add('active');
+          }
+        });
+      });
+    });
+
+    // 加载价目表
+    async function loadPriceList() {
+      try {
+        const response = await fetch('data/price_list.json');
+        const data = await response.json();
+        renderPriceTable(data);
+      } catch (error) {
+        console.error('加载失败:', error);
+        document.getElementById('price').innerHTML = '<div class="loading">加载失败</div>';
+      }
+    }
+
+    function renderPriceTable(items) {
+      const container = document.getElementById('price');
+      let html = '<table class="price-table"><thead><tr><th>项目</th><th>价格</th><th>描述</th></tr></thead><tbody>';
+
+      items.forEach(item => {
+        html += `<tr><td>${item.item}</td><td class="price">${item.price}</td><td>${item.description}</td></tr>`;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    // 加载委托图片
+    async function loadCommissionImages() {
+      try {
+        const response = await fetch('data/commission_images.json');
+        const data = await response.json();
+        renderCommissionImages(data);
+      } catch (error) {
+        console.error('加载失败:', error);
+        document.getElementById('images').innerHTML = '<div class="loading">加载失败</div>';
+      }
+    }
+
+    function renderCommissionImages(items) {
+      const container = document.getElementById('images');
+      let html = '<div class="image-grid">';
+
+      items.forEach(item => {
+        html += `
+          <div class="grid-item">
+            <img src="${item.imageUrl}" alt="${item.caption}">
+            <div class="caption">${item.caption}</div>
+          </div>
+        `;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+
+      // 添加点击事件
+      container.querySelectorAll('.grid-item').forEach((item, index) => {
+        item.addEventListener('click', () => {
+          openModal(items[index].imageUrl);
+        });
+      });
+    }
+
+    // 打开模态框
+    function openModal(src) {
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭模态框
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 禁用右键保存
+    document.addEventListener('contextmenu', e => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    });
+
+    // 初始化
+    loadPriceList();
+    loadCommissionImages();
+  </script>
+</body>
+</html>

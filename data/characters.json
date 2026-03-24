@@ -1,0 +1,92 @@
+[
+  {
+    "name": "角色A",
+    "thumbnailUrl": "images/thumb_a.jpg",
+    "detailUrl": "images/detail_a.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example"
+    }
+  },
+  {
+    "name": "角色B",
+    "thumbnailUrl": "images/thumb_b.jpg",
+    "detailUrl": "images/detail_b.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example2"
+    }
+  },
+  {
+    "name": "角色C",
+    "thumbnailUrl": "images/thumb_c.jpg",
+    "detailUrl": "images/detail_c.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example3"
+    }
+  },
+  {
+    "name": "角色D",
+    "thumbnailUrl": "images/thumb_d.jpg",
+    "detailUrl": "images/detail_d.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example4"
+    }
+  },
+  {
+    "name": "角色E",
+    "thumbnailUrl": "images/thumb_e.jpg",
+    "detailUrl": "images/detail_e.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example5"
+    }
+  },
+  {
+    "name": "角色F",
+    "thumbnailUrl": "images/thumb_f.jpg",
+    "detailUrl": "images/detail_f.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example6"
+    }
+  },
+  {
+    "name": "角色G",
+    "thumbnailUrl": "images/thumb_g.jpg",
+    "detailUrl": "images/detail_g.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example7"
+    }
+  },
+  {
+    "name": "角色H",
+    "thumbnailUrl": "images/thumb_h.jpg",
+    "detailUrl": "images/detail_h.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example8"
+    }
+  },
+  {
+    "name": "角色I",
+    "thumbnailUrl": "images/thumb_i.jpg",
+    "detailUrl": "images/detail_i.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example9"
+    }
+  },
+  {
+    "name": "角色J",
+    "thumbnailUrl": "images/thumb_j.jpg",
+    "detailUrl": "images/detail_j.jpg",
+    "detailInfo": {
+      "site": "https://example.com",
+      "contact": "wechat: example10"
+    }
+  }
+]

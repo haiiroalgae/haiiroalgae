@@ -1,0 +1,8 @@
+[
+  { "imageUrl": "images/fanart1.jpg", "caption": "作品一" },
+  { "imageUrl": "images/fanart2.jpg", "caption": "作品二" },
+  { "imageUrl": "images/fanart3.jpg", "caption": "作品三" },
+  { "imageUrl": "images/fanart4.jpg", "caption": "作品四" },
+  { "imageUrl": "images/fanart5.jpg", "caption": "作品五" },
+  { "imageUrl": "images/fanart6.jpg", "caption": "作品六" }
+]

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美术资源 - Fanart</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #f7b05e;
+      --bg-white: #ffffff;
+      --bg-gray: #f5f5f5;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* 返回按钮 */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+    }
+
+    .back-btn a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-white);
+      border-radius: 25px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background: var(--primary-color);
+      color: var(--bg-white);
+    }
+
+    /* 页面标题 */
+    .page-title {
+      text-align: center;
+      padding: 5rem 1rem 2rem;
+      font-size: 1.75rem;
+      color: var(--text-dark);
+    }
+
+    /* 网格布局 */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 3rem 1rem 1rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      color: white;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+
+    /* 加载状态 */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-gray);
+    }
+
+    /* 模态框 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: background 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--primary-color);
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .page-title {
+        padding: 4rem 1rem 1rem;
+        font-size: 1.5rem;
+      }
+
+      .back-btn {
+        top: 1rem;
+        left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  <!-- 返回按钮 -->
+  <div class="back-btn">
+    <a href="avatar.html">← 返回皮套</a>
+  </div>
+
+  <h1 class="page-title">绘画图集</h1>
+
+  <div class="gallery" id="gallery">
+    <div class="loading">加载中...</div>
+  </div>
+
+  <!-- 图片预览模态框 -->
+  <div class="modal" id="modal">
+    <span class="modal-close" id="modalClose">×</span>
+    <img id="modalImg" src="" alt="大图预览">
+  </div>
+
+  <script>
+    // 加载绘画数据
+    async function loadFanart() {
+      try {
+        const response = await fetch('data/fanart.json');
+        const data = await response.json();
+        renderGallery(data);
+      } catch (error) {
+        console.error('加载失败:', error);
+        document.getElementById('gallery').innerHTML = '<div class="loading">加载失败，请稍后重试</div>';
+      }
+    }
+
+    // 渲染图集
+    function renderGallery(items) {
+      const gallery = document.getElementById('gallery');
+      gallery.innerHTML = '';
+
+      items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'gallery-item';
+        div.innerHTML = `
+          <img src="${item.imageUrl}" alt="${item.caption}">
+          <div class="caption">${item.caption}</div>
+        `;
+        div.addEventListener('click', () => openModal(item.imageUrl));
+        gallery.appendChild(div);
+      });
+    }
+
+    // 打开模态框
+    function openModal(src) {
+      const modal = document.getElementById('modal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭模态框
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // 禁用右键保存
+    document.addEventListener('contextmenu', e => {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    });
+
+    // 初始化
+    loadFanart();
+  </script>
+</body>
+</html>

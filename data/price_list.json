@@ -1,8 +1,8 @@
 [
-  { "item": "头像绘制", "price": "¥100", "description": "线稿+平涂" },
-  { "item": "半身插画", "price": "¥300", "description": "精细背景" },
-  { "item": "全身插画", "price": "¥500", "description": "含复杂背景" },
-  { "item": "Q版头像", "price": "¥80", "description": "简洁可爱风格" },
-  { "item": "立绘绘制", "price": "¥800", "description": "精细立绘含多表情" },
-  { "item": "情景插画", "price": "¥600", "description": "含背景和光效" }
+  { "item": "Just头", "price": "¥168", "description": "只有头的PNG" },
+  { "item": "muQ2.0", "price": "¥95", "description": "平涂二头身" },
+  { "item": "Qprime", "price": "¥420+", "description": "可服设，插图等，分层分解类型Q版" },
+  { "item": "ins半身", "price": "¥500+", "description": "类似半身插图" },
+  { "item": "A5set", "price": "¥500+", "description": "立绘+可简单互动构图Q版组合套餐" },
+  { "item": "A3prime", "price": "¥2k+", "description": "被发射到外太空惹" }
 ]

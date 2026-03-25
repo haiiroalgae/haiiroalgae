@@ -180,31 +180,55 @@
         text-align: center;
       }
 
+      /* 手机端栏目横向排列 */
       .main-nav {
-        gap: 1rem;
-        padding: 2rem 1rem;
-        padding-top: 3rem;
+        gap: 0.75rem;
+        padding: 1.5rem 0.5rem;
+        flex-wrap: nowrap;
+        justify-content: center;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .nav-item {
-        width: 100%;
-        max-width: 280px;
-        height: 80px;
+        width: 30%;
+        min-width: 100px;
+        max-width: 140px;
+        height: 70px;
+        flex-shrink: 0;
       }
 
-      /* 子菜单在手机端 */
+      .nav-item span {
+        font-size: 0.9rem;
+      }
+
+      /* 子菜单在手机端 - 弹出在上方 */
       .submenu {
         position: absolute;
-        top: 100%;
+        bottom: 100%;
+        top: auto;
         left: 50%;
         transform: translateX(-50%);
         background: var(--bg-white);
         border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.25);
         padding: 0.5rem 0;
-        min-width: 160px;
-        z-index: 1000;
-        margin-top: 0.5rem;
+        min-width: 140px;
+        z-index: 1001;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+      }
+
+      /* 箭头指示 */
+      .submenu::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid var(--bg-white);
       }
 
       /* 默认隐藏，点击/触摸时显示 */
@@ -218,6 +242,11 @@
       .nav-item:focus-within .submenu {
         opacity: 1;
         visibility: visible;
+      }
+
+      .submenu a {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
       }
 
       /* 个人动态没有子菜单 */

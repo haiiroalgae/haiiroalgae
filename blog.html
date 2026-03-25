@@ -56,9 +56,32 @@
     /* 页面标题 */
     .page-title {
       text-align: center;
-      padding: 5rem 1rem 2rem;
+      padding: 5rem 1rem 1rem;
       font-size: 1.75rem;
       color: var(--text-dark);
+    }
+
+    /* 站外链接 */
+    .social-links {
+      text-align: center;
+      padding: 0 1rem 1.5rem;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin: 0.25rem 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-gray);
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary-color);
+      color: var(--bg-white);
     }
 
     /* 动态卡片容器 */
@@ -244,6 +267,15 @@
   </div>
 
   <h1 class="page-title">个人动态</h1>
+
+  <!-- 站外链接 -->
+  <div class="social-links">
+    <a href="https://xhslink.com/m/rkPKgewvo9" target="_blank" rel="noopener">小红书</a>
+    <a href="https://www.douyin.com/" target="_blank" rel="noopener">抖音</a>
+    <a href="https://weibo.com/u/7883250297" target="_blank" rel="noopener">微博</a>
+    <a href="http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=cPFkn7n6hnwcP9lfCcGubjU6kwsVBDSi&authKey=2q4%2FgDzznb5qdJRRCNu4hPBK0AP3bITmCK1IQ%2FoJzuuielm9cbq%2FYD3dce2LUdJr&noverify=0&group_code=643572034" target="_blank" rel="noopener">Q群</a>
+    <a href="https://ifdian.net/a/haiiroalgae" target="_blank" rel="noopener">爱发电</a>
+  </div>
 
   <div class="blog-container" id="blogContainer">
     <div class="loading">加载中...</div>

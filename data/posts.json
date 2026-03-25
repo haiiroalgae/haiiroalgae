@@ -2,7 +2,7 @@
   {
     "id": 1,
     "isPinned": true,
-    "content": "置顶：今天画了新图！<br>大家喜欢吗？",
+    "content": "置顶：在这里放下一些须知和联系方式<br>感谢访问~",
     "images": ["images/post1.jpg", "images/post2.jpg", "images/post3.jpg"],
     "createdAt": "2025-03-25 10:00"
   },

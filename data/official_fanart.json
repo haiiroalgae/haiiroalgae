@@ -1,0 +1,36 @@
+[
+  {
+    "name": "角色A",
+    "avatarUrl": "images/official/avatar_a.png",
+    "gallery": [
+      { "imageUrl": "images/official/a_gallery1.jpg", "caption": "角色A - 全身立绘" },
+      { "imageUrl": "images/official/a_gallery2.jpg", "caption": "角色A - 表情变化" },
+      { "imageUrl": "images/official/a_gallery3.jpg", "caption": "角色A - 场景展示" }
+    ]
+  },
+  {
+    "name": "角色B",
+    "avatarUrl": "images/official/avatar_b.png",
+    "gallery": [
+      { "imageUrl": "images/official/b_gallery1.jpg", "caption": "角色B - 全身立绘" },
+      { "imageUrl": "images/official/b_gallery2.jpg", "caption": "角色B - 服装展示" }
+    ]
+  },
+  {
+    "name": "角色C",
+    "avatarUrl": "images/official/avatar_c.png",
+    "gallery": [
+      { "imageUrl": "images/official/c_gallery1.jpg", "caption": "角色C - 全身立绘" },
+      { "imageUrl": "images/official/c_gallery2.jpg", "caption": "角色C - 细节展示" },
+      { "imageUrl": "images/official/c_gallery3.jpg", "caption": "角色C - 动作展示" },
+      { "imageUrl": "images/official/c_gallery4.jpg", "caption": "角色C - 场景图" }
+    ]
+  },
+  {
+    "name": "角色D",
+    "avatarUrl": "images/official/avatar_d.png",
+    "gallery": [
+      { "imageUrl": "images/official/d_gallery1.jpg", "caption": "角色D - 全身立绘" }
+    ]
+  }
+]

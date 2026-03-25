@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>官方二创 - Official Fanart</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #f7b05e;
+      --bg-white: #ffffff;
+      --bg-gray: #f5f5f5;
+      --text-dark: #333333;
+      --text-gray: #666666;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--bg-white);
+      color: var(--text-dark);
+      min-height: 100vh;
+    }
+
+    /* 返回按钮 */
+    .back-btn {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 100;
+    }
+
+    .back-btn a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-white);
+      border-radius: 25px;
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background: var(--primary-color);
+      color: var(--bg-white);
+    }
+
+    /* 页面标题 */
+    .page-title {
+      text-align: center;
+      padding: 5rem 1rem 2rem;
+      font-size: 1.75rem;
+      color: var(--text-dark);
+    }
+
+    /* 角色气泡网格 - 圆形散布式布局 */
+    .character-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .character-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .character-item:hover {
+      transform: scale(1.1);
+    }
+
+    .character-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      transition: box-shadow 0.3s ease;
+      background: var(--bg-gray);
+    }
+
+    .character-item:hover .character-avatar {
+      box-shadow: 0 8px 24px rgba(247, 176, 94, 0.4);
+    }
+
+    .character-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .character-name {
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      text-align: center;
+    }
+
+    /* 加载状态 */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-gray);
+    }
+
+    /* 模态框 */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transition: background 0.3s ease;
+      z-index: 1010;
+    }
+
+    .modal-close:hover {
+      background: var(--primary-color);
+    }
+
+    /* 图集容器 */
+    .gallery-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gallery-item img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .gallery-caption {
+      margin-top: 0.75rem;
+      color: white;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .character-grid {
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+
+      .character-avatar {
+        width: 70px;
+        height: 70px;
+      }
+
+      .character-name {
+        font-size: 0.85rem;
+      }
+
+      .page-title {
+        padding: 4rem 1rem 1rem;
+        font-size: 1.5rem;
+      }
+
+      .modal {
+        padding: 1rem;
+      }
+
+      .gallery-item img {
+        max-height: 50vh;
+      }
+
+      .back-btn {
+        top: 1rem;
+        left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 返回按钮 -->
+  <div class="back-btn">
+    <a href="avatar.html">← 返回皮套</a>
+  </div>
+
+  <h1 class="page-title">官方二创</h1>
+
+  <div class="character-grid" id="characterGrid">
+    <div class="loading">加载中...</div>
+  </div>
+
+  <!-- 角色详情模态框 -->
+  <div class="modal" id="modal">
+    <span class="modal-close" id="modalClose">×</span>
+    <div class="modal-content">
+      <div class="gallery-container" id="galleryContainer"></div>
+    </div>
+  </div>
+
+  <script>
+    // 加载角色数据
+    async function loadCharacters() {
+      try {
+        const response = await fetch('data/official_fanart.json');
+        const data = await response.json();
+        renderCharacters(data);
+      } catch (error) {
+        console.error('加载失败:', error);
+        document.getElementById('characterGrid').innerHTML = '<div class="loading">加载失败</div>';
+      }
+    }
+
+    // 渲染角色气泡
+    function renderCharacters(characters) {
+      const grid = document.getElementById('characterGrid');
+      grid.innerHTML = '';
+
+      characters.forEach((char) => {
+        const item = document.createElement('div');
+        item.className = 'character-item';
+        item.innerHTML = `
+          <div class="character-avatar">
+            <img src="${char.avatarUrl}" alt="${char.name}">
+          </div>
+          <div class="character-name">${char.name}</div>
+        `;
+        item.addEventListener('click', () => openModal(char));
+        grid.appendChild(item);
+      });
+    }
+
+    // 打开模态框
+    function openModal(character) {
+      const container = document.getElementById('galleryContainer');
+      container.innerHTML = '';
+
+      // 渲染图集
+      if (character.gallery && character.gallery.length > 0) {
+        character.gallery.forEach((imgItem) => {
+          const div = document.createElement('div');
+          div.className = 'gallery-item';
+          div.innerHTML = `
+            <img src="${imgItem.imageUrl}" alt="${imgItem.caption || ''}">
+            ${imgItem.caption ? `<div class="gallery-caption">${imgItem.caption}</div>` : ''}
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭模态框
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('modal').classList.remove('active');
+      document.body.style.overflow = '';
+    });
+
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // 初始化
+    loadCharacters();
+  </script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 [
   {
-    "name": "角色A",
+    "name": "粉荔猫",
     "thumbnailUrl": "images/thumb_a.png",
     "detailImages": ["images/detail_a1.png", "images/detail_a2.png", "images/detail_a3.png"],
     "detailInfo": {
@@ -9,7 +9,7 @@
     }
   },
   {
-    "name": "角色B",
+    "name": "苹苹蟑",
     "thumbnailUrl": "images/thumb_b.png",
     "detailImages": ["images/detail_b1.png", "images/detail_b2.png", "images/detail_b3.png"],
     "detailInfo": {

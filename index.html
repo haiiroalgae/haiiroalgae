@@ -183,13 +183,46 @@
       .main-nav {
         gap: 1rem;
         padding: 2rem 1rem;
-        padding-top: 1rem;
+        padding-top: 3rem;
       }
 
       .nav-item {
         width: 100%;
         max-width: 280px;
         height: 80px;
+      }
+
+      /* 子菜单在手机端 */
+      .submenu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bg-white);
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        padding: 0.5rem 0;
+        min-width: 160px;
+        z-index: 1000;
+        margin-top: 0.5rem;
+      }
+
+      /* 默认隐藏，点击/触摸时显示 */
+      .nav-item .submenu {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s, visibility 0.2s;
+      }
+
+      .nav-item:active .submenu,
+      .nav-item:focus-within .submenu {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* 个人动态没有子菜单 */
+      .nav-item.blog .submenu {
+        display: none;
       }
     }
   </style>

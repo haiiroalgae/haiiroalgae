@@ -26,11 +26,10 @@
       min-height: 100vh;
     }
 
-    /* 顶部16:9置顶图 */
+    /* 顶部16:9置顶图 - 循环轮播 */
     .hero-section {
       width: 100%;
       aspect-ratio: 16 / 9;
-      background: url('images/top.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -38,25 +37,58 @@
       overflow: hidden;
     }
 
-    /* 图片加载失败时的备用背景 */
-    .hero-section::before {
-      content: '';
+    /* 轮播图层 */
+    .hero-slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      animation: slideShow 15s infinite;
+    }
+
+    .hero-slides .slide {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
+    /* 多张背景图 */
+    .hero-slides .slide:nth-child(1) { background-image: url('images/top1.jpg'); }
+    .hero-slides .slide:nth-child(2) { background-image: url('images/top2.jpg'); }
+    .hero-slides .slide:nth-child(3) { background-image: url('images/top3.jpg'); }
+
+    @keyframes slideShow {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(0); }
+      40% { transform: translateX(-100%); }
+      66% { transform: translateX(-100%); }
+      73% { transform: translateX(-200%); }
+      100% { transform: translateX(-200%); }
+    }
+
+    /* 遮罩层 */
+    .hero-overlay {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, var(--primary-color) 0%, #e8964a 100%);
-      z-index: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
     }
 
     .hero-title {
-      font-size: clamp(2rem, 8vw, 4rem);
+      font-size: clamp(1.2rem, 4vw, 2rem);
       color: var(--bg-white);
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-      z-index: 1;
-      letter-spacing: 0.1em;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+      z-index: 2;
+      letter-spacing: 0.2em;
       position: relative;
+      text-transform: uppercase;
     }
 
     /* 三大栏目 */
@@ -140,9 +172,18 @@
 
     /* 响应式 */
     @media (max-width: 768px) {
+      .hero-section {
+        aspect-ratio: 4 / 3;
+      }
+
+      .hero-title {
+        text-align: center;
+      }
+
       .main-nav {
         gap: 1rem;
         padding: 2rem 1rem;
+        padding-top: 1rem;
       }
 
       .nav-item {
@@ -156,7 +197,13 @@
 <body>
   <!-- 顶部置顶图 -->
   <div class="hero-section">
-    <h1 class="hero-title">Welcome to my world</h1>
+    <div class="hero-slides">
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <h1 class="hero-title">Welcome!</h1>
   </div>
 
   <!-- 三大栏目 -->

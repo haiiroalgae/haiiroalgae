@@ -1,17 +1,23 @@
 [
   {
-    "content": "今天画了新图！<br>",
-    "images": [],
+    "id": 1,
+    "isPinned": true,
+    "content": "置顶：今天画了新图！<br>大家喜欢吗？",
+    "images": ["images/post1.jpg", "images/post2.jpg", "images/post3.jpg"],
     "createdAt": "2025-03-25 10:00"
   },
   {
+    "id": 2,
+    "isPinned": false,
     "content": "正在准备新设定～",
     "images": [],
     "createdAt": "2025-03-24 15:30"
   },
   {
+    "id": 3,
+    "isPinned": false,
     "content": "皮套工事中....",
-    "images": [],
+    "images": ["images/post4.jpg"],
     "createdAt": "2025-03-23 20:00"
   }
 ]

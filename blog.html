@@ -76,10 +76,28 @@
       margin-bottom: 1.5rem;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
       transition: box-shadow 0.3s ease;
+      position: relative;
     }
 
     .blog-card:hover {
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 置顶标识 */
+    .blog-card.pinned {
+      border: 2px solid var(--primary-color);
+    }
+
+    .blog-card.pinned::before {
+      content: '置顶';
+      position: absolute;
+      top: -1px;
+      right: 1rem;
+      background: var(--primary-color);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0 0 8px 8px;
     }
 
     .blog-time {
@@ -112,9 +130,17 @@
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .blog-images.grid-3,
+    .blog-images.grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
     .blog-images.grid-4 {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .blog-images.grid-3 img,
+    .blog-images.grid-4 img {
+      height: 180px;
     }
 
     .blog-images img {
@@ -247,13 +273,26 @@
       const container = document.getElementById('blogContainer');
       container.innerHTML = '';
 
-      posts.forEach(post => {
-        const card = document.createElement('div');
-        card.className = 'blog-card';
+      // 置顶排序：置顶文章在前，其他按时间倒序
+      const sortedPosts = [...posts].sort((a, b) => {
+        if (a.isPinned && !b.isPinned) return -1;
+        if (!a.isPinned && b.isPinned) return 1;
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
 
+      sortedPosts.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'blog-card' + (post.isPinned ? ' pinned' : '');
+
+        // 多图网格布局支持
         let imagesHtml = '';
         if (post.images && post.images.length > 0) {
-          const gridClass = `grid-${post.images.length}`;
+          const count = post.images.length;
+          let gridClass = 'grid-1';
+          if (count === 2) gridClass = 'grid-2';
+          else if (count === 3) gridClass = 'grid-3';
+          else if (count >= 4) gridClass = 'grid-4';
+          
           const imagesList = post.images.map(img =>
             `<img src="${img}" alt="动态图片">`
           ).join('');

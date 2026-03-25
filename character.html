@@ -292,7 +292,7 @@
     <a href="index.html">← 返回首页</a>
   </div>
 
-  <h1 class="page-title">角色图鉴</h1>
+  <h1 class="page-title">设定展示</h1>
 
   <div class="character-grid" id="characterGrid">
     <div class="loading">加载中...</div>
@@ -313,8 +313,8 @@
 
       <div class="modal-info">
         <h2 id="modalName"></h2>
-        <p><strong>站点链接：</strong><a id="modalSite" href="#" target="_blank"></a></p>
-        <p><strong>联系方式：</strong><span id="modalContact"></span></p>
+        <p><strong>设定简介：</strong><span id="modalIntro"></span></p>
+        <p><strong>设主链接：</strong><a id="modalSite" href="#" target="_blank"></a></p>
       </div>
     </div>
   </div>
@@ -378,9 +378,9 @@
 
       // 更新角色信息
       document.getElementById('modalName').textContent = char.name;
+      document.getElementById('modalIntro').textContent = char.detailInfo.intro;
       document.getElementById('modalSite').textContent = char.detailInfo.site;
       document.getElementById('modalSite').href = char.detailInfo.site;
-      document.getElementById('modalContact').textContent = char.detailInfo.contact;
 
       document.getElementById('modal').classList.add('active');
       document.body.style.overflow = 'hidden';

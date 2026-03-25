@@ -4,8 +4,8 @@
     "thumbnailUrl": "images/thumb_a.png",
     "detailImages": ["images/detail_a1.png", "images/detail_a2.png", "images/detail_a3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example"
+      "intro": "由荔枝蛋孵化而出，拥有荔枝果肉质感的肉垫，周身散发着水果的香气",
+      "site": "https://example.com"
     }
   },
   {
@@ -13,8 +13,8 @@
     "thumbnailUrl": "images/thumb_b.png",
     "detailImages": ["images/detail_b1.png", "images/detail_b2.png", "images/detail_b3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example2"
+      "intro": "一位汉堡店普通员工",
+      "site": "https://example.com"
     }
   },
   {
@@ -22,8 +22,8 @@
     "thumbnailUrl": "images/thumb_c.png",
     "detailImages": ["images/detail_c1.png", "images/detail_c2.png", "images/detail_c3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example3"
+      "intro": "角色C的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -31,8 +31,8 @@
     "thumbnailUrl": "images/thumb_d.png",
     "detailImages": ["images/detail_d1.png", "images/detail_d2.png", "images/detail_d3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example4"
+      "intro": "角色D的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -40,8 +40,8 @@
     "thumbnailUrl": "images/thumb_e.png",
     "detailImages": ["images/detail_e1.png", "images/detail_e2.png", "images/detail_e3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example5"
+      "intro": "角色E的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -49,8 +49,8 @@
     "thumbnailUrl": "images/thumb_f.png",
     "detailImages": ["images/detail_f1.png", "images/detail_f2.png", "images/detail_f3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example6"
+      "intro": "角色F的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -58,8 +58,8 @@
     "thumbnailUrl": "images/thumb_g.png",
     "detailImages": ["images/detail_g1.png", "images/detail_g2.png", "images/detail_g3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example7"
+      "intro": "角色G的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -67,8 +67,8 @@
     "thumbnailUrl": "images/thumb_h.png",
     "detailImages": ["images/detail_h1.png", "images/detail_h2.png", "images/detail_h3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example8"
+      "intro": "角色H的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -76,8 +76,8 @@
     "thumbnailUrl": "images/thumb_i.png",
     "detailImages": ["images/detail_i1.png", "images/detail_i2.png", "images/detail_i3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example9"
+      "intro": "角色I的设定简介",
+      "site": "https://example.com"
     }
   },
   {
@@ -85,8 +85,8 @@
     "thumbnailUrl": "images/thumb_j.png",
     "detailImages": ["images/detail_j1.png", "images/detail_j2.png", "images/detail_j3.png"],
     "detailInfo": {
-      "site": "https://example.com",
-      "contact": "wechat: example10"
+      "intro": "角色J的设定简介",
+      "site": "https://example.com"
     }
   }
 ]
